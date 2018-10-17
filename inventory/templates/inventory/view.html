@@ -1,0 +1,94 @@
+{% extends "inventory/base.html" %}
+
+{% block content %}
+
+
+<table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Item</th>
+            <th scope="col">{{item}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Generic Item Id</th>
+            <td>{{item.generic_item_id}}</td>
+          </tr>
+          <tr>
+            <th scope="row">full quan</th>
+            <td>{{item.full_quantity}} {{item.get_unit_display}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Current Quantity</th>
+            <td>{{item.current_quantity}} {{item.get_unit_display}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Quantity Percentage</th>
+            <td>{{item.quantity_percentage}}%</td>
+          </tr>
+          {% if item.expiry_date %}
+          <tr>
+            <th scope="row">Expiry Date</th>
+            <td>{{item.expiry_date}}</td>
+          </tr>
+          {% endif %}
+          {% if item.aeoo_int %}
+          <tr>
+            <th scope="row">AEOO Int</th>
+            <td>{{item.aeoo_int}} days</td>
+          </tr>
+          {% endif %}
+          {% if item.pack_int %}
+          <tr>
+            <th scope="row">Pack Int</th>
+            <td>{{item.pack_int}}</td>
+          </tr>
+          {% endif %}
+          {% if item.aeoo_date %}
+          <tr>
+            <th scope="row">AEOO Date</th>
+            <td>{{item.aeoo_date}}</td>
+          </tr>
+          {% endif %}
+          <tr>
+            <th scope="row">Barcode</th>
+            <td>{{item.barcode}}</td>
+          </tr>
+          {% if item.indv_barcode %}
+          <tr>
+            <th scope="row">Individual Barcode</th>
+            <td>{{item.indv_barcode}}</td>
+          </tr>
+          {% endif %}
+          {% if item.price %}
+          <tr>
+            <th scope="row">Price</th>
+            <td>${{item.price}}</td>
+          </tr>
+          {% endif %}
+          {% if item.price_per_quantity %}
+          <tr>
+            <th scope="row">Price per {{item.get_unit_display}}</th>
+            <td>${{item.price_per_quantity}} /  {{item.get_unit_display}}</td>
+          </tr>
+          {% endif %}
+          {% if item.item_alert %}
+          <tr>
+            <th scope="row">Alert setting</th>
+            <td>{{item.get_item_alert_display}}</td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+      <form action="{% url 'edit' item.id %}">
+        <input type="submit" value="Edit" />
+      </form>
+      <form action="{% url 'use' item.id %}">
+        <input type="submit" value="Use" />
+      </form>
+      <form action="{% url 'delete' item.id %}">
+        <input type="submit" value="Delete" />
+      </form>
+
+{% endblock %}

@@ -1,0 +1,9 @@
+from django.conf.urls import url
+
+from . import views
+
+urlpatterns = [
+    url('^$', views.index, name='index'),
+    url('<int:Item_id>/', views.view, name='view'),
+    url('<int:Item_id>/', views.use, name='use')
+]

@@ -1,0 +1,35 @@
+{% extends "inventory/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<head>
+        <meta charset="UTF-8">
+</head>
+
+<a href="{% url 'add' %}">add</a>
+
+{% for item in all_items %}
+<p><a href="{% url 'view' item.id %}">{{ item }}</a></p>
+{% endfor %}
+
+<h3>Simple initalization with default settings</h3>
+<hr>
+<canvas></canvas>
+<hr>
+<ul></ul>
+<script type="text/javascript" src="{% static 'inventory/js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'inventory/js/qrcodelib.js' %}"></script>
+<script type="text/javascript" src="{% static 'inventory/js/webcodecamjs.js' %}"></script>
+<script type="text/javascript">
+    var txt = "innerText" in HTMLElement.prototype ? "innerText" : "textContent";
+    var arg = {
+        resultFunction: function(result) {
+            window.location.assign("{% url 'view' 12345 %}".replace(/12345/, result.code));
+        }
+    };
+    new WebCodeCamJS("canvas").init(arg).play();
+</script>
+
+{% endblock %}
